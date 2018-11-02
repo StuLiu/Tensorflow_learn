@@ -18,6 +18,7 @@ y = tf.nn.softmax(tf.matmul(x, W) + b)  # matrix:[n, 10]
 
 y_ = tf.placeholder(tf.float32, [None, 10])
 
+# reduction_indices : 0-行之间的操作,1-列之间的操作
 cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y), reduction_indices=[1]))   # loss function
 
 train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
@@ -31,6 +32,7 @@ for s in range(1000):   # run computation graph
 correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
-print(accuracy.eval({x:mnist.test.images, y_:mnist.test.labels}))
+# print(accuracy.eval({x:mnist.test.images, y_:mnist.test.labels}))
+print(sess.run(accuracy, {x:mnist.test.images, y_:mnist.test.labels}))
 print(W.eval())
 print(b.eval())
