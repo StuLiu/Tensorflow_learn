@@ -27,6 +27,7 @@ tf.global_variables_initializer().run()
 
 for s in range(1000):   # run computation graph
 	batch_xs, batch_ys = mnist.train.next_batch(100)
+	print(batch_xs.shape, batch_ys.shape)
 	train_step.run({x : batch_xs, y_ : batch_ys})
 
 correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
